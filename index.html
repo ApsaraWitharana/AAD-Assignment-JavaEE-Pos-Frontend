@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Pos system Bootstrap Frant End</title>
+    <link rel="stylesheet" href="/assest/boostrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assest/fonts/css/all.min.css">
+    <link rel="stylesheet" href="/assest/styles/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+        <meta name="description" content="Welcome to Pos System">
+        <meta name="owner" content="Sachini Apsara">
+        <meta name="author" content="Sachini Apsara">
+        <meta name="theme-color" content="Blue">
+
+</head>
+
+<body>
+   
+    <nav class="navbar navbar-expand-md navbar-light shadow p-2 mb-3 bg-body-tertiary rounded navtop ">
+        <a href="" class="navbar-brand text-success">Pos System</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#item"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse justify-content-start" id="item">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                <li class="nav-item ">
+                    <span class="nav-link navigation active text-primary" id="home-btn">Home</span>
+                </li>
+                <li class="nav-item">
+                    <span class="nav-link navigation text-primary" id="customer-btn">Customer</span>
+                </li>
+
+                <li class="nav-item">
+                    <span class="nav-link navigation text-primary" id="item-btn">Items</span>
+                </li>
+
+                <li class="nav-item ">
+                    <span class="nav-link navigation text-primary" id="order-btn">Orders</span>
+                </li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle navigation text-primary" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Other
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><span class="dropdown-item nav-link navigation text-primary"
+                                id="customer-btn">Delivery</span></li>
+                        <li><a class="dropdown-item nav-link navigation text-primary" href="#">Other</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="collapse navbar-collapse justify-content-end">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a href="" class="nav-link"> <i class="fas fa-user-plus"></i> Sign Up</a></li>
+                <li class="nav-item active"><a href="" class="nav-link"> <i class="fas fa-door-open"></i> Log Out</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="homediv" class="container-fluid">
+        
+        <!-- <div class="col  mt-3 mt-lg-0 ">
+            <div class="row">
+                <div class="col">
+                    <div class="myCard">
+                        <i class="fas fa-users"></i>
+                        <h1>All Customers</h1>
+                        <h2>150</h2>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="myCard">
+                        <i class="fab fa-shopify"></i>
+                        <h1>All Items</h1>
+                        <h2>430</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col">
+                    <div class="myCard">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h1>All Orders</h1>
+                        <h2>3500</h2>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <h5 style=" text-align: center; font-size: 30px; ">Rice Miller</h5>
+        <div class="dashboard">
+            <div class="chart-container">
+                <h4>Yearly Product Sale</h4>
+                <canvas id="lineChart"></canvas>
+            </div>
+           
+            <div class="chart-container">
+                <h4>Monthly Product Sale</h4>
+                <canvas id="barChart"></canvas>
+            </div>
+           
+            <div class="chart-container">
+                <h4>Daily Product Sale</h4>
+                <canvas id="pieChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <section class="container-fluid order-section " id="orderForm">
+        <div class="container-fluid " id="placeOrder">
+            <section class="row m-2">
+                <div class="col bg-light m-1 card od col-md-6 col-lg-4 col-sm-12">
+                    <div class="card-header">
+                        <h5 class="card-title text-start text-white">Orders Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <form class="row ">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Order Id :</label>
+                                    <input class="form-control" id="orderId" placeholder="ORD001" disabled>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Date :</label>
+                                    <input class="form-control" id="orderDate" required type="date" disabled>
+                                </div>
+
+                                <div class="col-md-6 mt-3 mb-3">
+                                    <label class="form-label fw-bold">Customer ID :</label>
+                                    <select class="form-select" name="customer" placeholder="C00-001" id="cusIdOption">
+                                        <option>C00-000</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mt-3 mb-3">
+                                    <label class="form-label fw-bold">Customer name:</label>
+                                    <input class="form-control" id="orderCusName" placeholder="Sachini" disabled>
+                                </div>
+
+                                <div class="col-md-12 mt-3 mb-3">
+                                    <label class="form-label fw-bold">Salary :</label>
+                                    <input class="form-control" id="orderCusSalary" placeholder="20000.00" disabled>
+                                </div>
+
+                                <div class="col-md-12 mt-3 mb-3">
+                                    <label class="form-label fw-bold">Address :</label>
+                                    <input class="form-control" id="orderCusAddress" placeholder="Matara" disabled>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col bg-light m-1 card col-md-6 col-lg-4">
+                    <div class="card-header">
+                        <h5 class="card-title text-start text-white">Item Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <form class="row">
+                            <div class="row mb-3">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Item ID :</label>
+                                    <select class="form-select" name="customer" id="itemIdOption">
+
+
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold" for="orderFormItemName">Item name:</label>
+                                    <input class="form-control" id="orderFormItemName" placeholder="Punnisamba"
+                                        disabled>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold" for="orderFormPrice">Price :</label>
+                                    <input class="form-control" id="orderFormPrice" placeholder="300.00" disabled>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold" for="orderQty">QtyOnHand :</label>
+                                    <input class="form-control" id="orderFormQtyOnHand" placeholder="20" disabled>
+                                </div>
+
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-12 mb-3 fw-bold">
+                                    <label class="form-label">Order Quantity :</label>
+                                    <input class="form-control" placeholder="4" id="orderQty">
+                                    <span class="errorOrderQty">Please enter a amount lower than: <span
+                                            id="orderQtyValue"></span></span>
+                                    <span class="errorQty">item Qty is required field: Only Numbers</span>
+                                </div>
+                            </div>
+
+                            <div class="col-12 text-center mt-3">
+                                <button class="btn btn-primary p-2 px-5 text-light bg-opacity-50 fw-bold "
+                                    id="btn_addItem" type="button">Add Item
+                                   
+                                </button>
+                                <!-- <span class="erroraddItem">item Qty is in valied</span> -->
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col bg-white m-1 card" style="width: 18rem;">
+                    <div class="card-header">
+                        <h5 class="card-title text-start text-white">Payment Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="col-md-25 fw-bold d-flex justify-content-center gap-xxl-4 ">
+                            <h2 class="fw-lighter text-primary ">Total :</h2>
+                            <input type="text" class="fw-lighter text-primary" id="total" placeholder="00.00"
+                                style="font-size: 25px ; width: 100px; border: none" disabled>
+                        </div>
+
+                        <div class="col-md-25 fw-bold d-flex justify-content-center gap-xxl-4  ">
+                            <h2 class="fw-lighter text-danger ">SubTotal :</h2>
+                            <input type="text" class="fw-lighter text-danger" id="subTotal" placeholder="00.00"
+                                style="font-size: 25px ; width: 100px; border: none" disabled>
+                        </div>
+
+                        <!-- <div class="row">
+                            <div class="col-md-6 fw-bold mt-2">
+                                <label class="form-label" for="orderFormItemName">Cash :</label>
+                                <input class="form-control" id="txtCash" placeholder="5000">
+                                <span id="cashError">Insufficient credit</span>
+                            </div>
+
+                            <div class="col-md-6 fw-bold mt-2">
+                                <label class="form-label" for="orderFormItemName">Discount :</label>
+                                <input class="form-control" id="txtDiscount" placeholder="00.00" disabled>
+                            </div>     
+                        </div> -->
+                        <div class="row gx-3 mt-4">
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label for="cash" class="form-label">Cash</label>
+                                    <input type="text" class="form-control" id="cash" placeholder="0000.00">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="mb-3 mb-xxl-4">
+                                    <label for="discount" class="form-label">Discount</label>
+                                    <input type="number" class="form-control" id="discount" placeholder="10%">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row ">
+                            <div class="col-md-13 fw-bold mt-2">
+                                <label class="form-label" for="orderFormItemName">Balance :</label>
+                                <input class="form-control" id="txtBalance" placeholder="0000.00" disabled>
+                            </div>
+
+                            <div class="text-center mt-md-4">
+                                <button class="btn btn-primary p-2 px-5 text-light bg-opacity-50 fw-bold"
+                                    id="btnPurchase" type="button">Purchase
+                                </button>
+                            </div>
+                        </div> -->
+
+                        <div class="row">
+                            <div class="mb-3 mb-xl-5 mb-xxl-4">
+                                <label for="balance" class="form-label">Balance</label>
+                                <input type="text" class="form-control" id="balance" placeholder="0000.00">
+                            </div>
+                            <div class="text-center mt-md-4">
+                                <button class="btn btn-primary p-2 px-5 text-light bg-opacity-50 fw-bold" id="btnPurchase" type="button">Purchase
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section class="row mt-3 ">
+                <div class="col">
+                    <table class="table table-hover table-borderless table-striped caption-top" id="orderCart">
+                        <caption>All Orders</caption>
+                        <thead class="text-success rounded-3" style="background-color: #2d3d2d">
+                            <tr>
+                                <th>Item Code</th>
+                                <th>Item Name</th>
+                                <th>Item Price</th>
+                                <th>Qty</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <section class="row mt-3 justify-content-around container-fluid" id="item-section">
+        <div class="container-fluid mt-7 p-2">
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <div class="card shadow-lg">
+                        <div class="card-header">
+                            <h5 class="card-title text-start text-white">Item Search</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <input class="form-control" placeholder="Input Name/Item Code Here" type="text">
+                            </div>
+                            <div class=" justify-content-between">
+                                <button type="button" class="btn btn-success text-white">Search</button>
+
+                                <button class="btn btn-outline-dark dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Name
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item active" href="#">Name</a></li>
+                                    <li><a class="dropdown-item" href="#">Code</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="container mt-7">
+                        <div class="row justify-content-center">
+                            <div class="col-md-10">
+                                <div class="card shadow-lg">
+                                    <div class="card-header">
+                                        <h5 class="card-title text-start text-white">New Item</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="IID" class="fw-bold">Item Code:</label>
+                                                <input type="text" class="form-control" id="IID" placeholder="I00-001"
+                                                    onkeyup="checkFieldItemId()">
+                                                <span class="errorMessageItemId">item id is required field: Pattern
+                                                    I00-000 </span>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label for="IName" class="fw-bold">Item Name:</label>
+                                                <input type="text" class="form-control" id="IName"
+                                                    placeholder="Punnisamab" onkeyup="checkFieldItemName()">
+                                                <span class="errorMessageItemName">item name is required field: Minimum
+                                                    5,Max 20, Space Allowed </span>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label for="IPrice" class="fw-bold">Item Price:</label>
+                                                <input type="text" class="form-control" id="IPrice"
+                                                    placeholder="300.00" onkeyup="checkFieldItemPrice()">
+                                                <span class="errorMessageItemPrice">item price is required field:
+                                                    Pattern 100.00 or 100 </span>
+                                            </div>
+                                            <div class="col-md-6 mt-3 mb-3">
+                                                <label class="form-label fw-bold">Status :</label>
+                                                <select class="form-select" name="customer" placeholder="5kg" id="cusIdOption">
+                                                    <option>5kg</option>
+                                                    <option>10kg</option>
+                                                    <option>25kg</option>
+                                                    <option>50kg</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label for="Iquentity" class="fw-bold">Item Quantity:</label>
+                                                <input type="text" class="form-control" id="Iquentity" placeholder="10"
+                                                    onkeyup="checkFieldItemQty()">
+                                                <span class="errorMessageItemQty">item Qty is required field: Only
+                                                    Numbers </span>
+                                            </div>
+                                            <div class="form-group text-center mt-4 ">
+                                                <button type="button"
+                                                    class="btn btn-primary mx-2 item_save_btn">Save</button>
+                                                <button type="button"
+                                                    class="btn btn-warning item_update_btn">Update</button>
+                                                <button type="button"
+                                                    class="btn btn-info mx-2 item_delete_btn">Delete</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="row mt-3 ">
+            <div class="col">
+                <table class="table table-hover table-borderless table-striped caption-top">
+                    <caption>All Items</caption>
+                    <thead class="text-success rounded-3" style="background-color: #2d3d2d">
+                        <tr>
+                            <th>Item Code</th>
+                            <th>Item Name</th>
+                            <th>Item Price</th>
+                            <th>Qty</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ItemsTable">
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </section>
+
+    <section class="row mt-3 justify-content-around container-fluid" id="customer-section">
+        <div class="container mt-7 p-2">
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <!-- <div class="card shadow-lg">
+                        <div class="card-header">
+                            <h5 class="card-title text-start text-white">Customer Search</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <input class="form-control" id="srcCusID" placeholder="Input Name/ID/Tp Here"
+                                    type="text">
+                            </div>
+                            <div class=" justify-content-between">
+                                <button type="button" class="btn btn-success text-white" id="searchb">Search</button>
+
+                                <button class="btn btn-outline-dark dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Name
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item active" href="#">Name</a></li>
+                                    <li><a class="dropdown-item" href="#">ID</a></li>
+                                    <li><a class="dropdown-item" href="#">TP</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div> -->
+                    <br>
+                    <div class="recentCustomer">
+                        <div class="cardHeader">
+                            <h2>Recent Customer</h2>
+                        </div>
+                        <table>
+                            <tr>
+                                <td width="40px">
+                                    <div class="imgBx"><img src="/assest/image/WhatsApp Image 2024-05-12 at 18.09.35_400c3969.jpg" alt="">
+                                    </div>
+                                </td>
+                                <td>
+                                    <h4>Sachini <span>Apsara</span></h4>
+                                    <h5>Matara</h5>
+                                </td>
+                    
+                            </tr>
+                            <tr>
+                                <td width="40px">
+                                    <div class="imgBx"><img src="assest/image/du image.jpg" alt=""></div>
+                                </td>
+                                <td>
+                                    <h4>Savindu <span>Thathsara</span></h4>
+                                    <h5>Galle</h5>
+                                </td>
+                    
+                            </tr>
+                            <tr>
+                                <td width="40px">
+                                    <div class="imgBx"><img src="/assest/image/WhatsApp Image 2024-03-16 at 08.34.05_4b3f8565.jpg" alt="">
+                                    </div>
+                                </td>
+                                <td>
+                                    <h4>Sachindu <span>Sadaruwan</span></h4>
+                                    <h5>Matara</h5>
+                                </td>
+                    
+                            </tr>
+                            <tr>
+                                <td width="40px">
+                                    <div class="imgBx"><img src="assest/image/WhatsApp Image 2024-03-21 at 10.52.37_94ff49ca.jpg" alt="">
+                                    </div>
+                                </td>
+                                <td>
+                                    <h4>Ruwani <span>Bdilshani</span></h4>
+                                    <h5>Kandy</h5>
+                                </td>
+                    
+                            </tr>
+                            <tr>
+                                <td width="40px">
+                                    <div class="imgBx"><img src="assest/image/stylish-dp-for-girls-wp-pr.jpg" alt=""></div>
+                                </td>
+                                <td>
+                                    <h4>Anu <span>Apsara</span></h4>
+                                    <h5>Colombo</h5>
+                                </td>
+                    
+                            </tr>
+                            <tr>
+                                <td width="40px">
+                                    <div class="imgBx"><img src="assest/image/stylish-dp-for-girls-wp-pr.jpg" alt=""></div>
+                                </td>
+                                <td>
+                                    <h4>Thumali <span>Iduwari</span></h4>
+                                    <h5>Colombo</h5>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="col-md-5">
+                    <div class="container mt-7">
+                        <div class="row justify-content-center">
+                            <div class="col-md-10">
+                                <div class="card shadow-lg">
+                                    <div class="card-header">
+                                        <h5 class="card-title text-start text-white">New Customer</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <form>
+                                            <div class="form-group" id="cusidDiv">
+                                                <label for="customerID" class="fw-bold">Customer ID:</label>
+                                                <input type="text" class="form-control" id="customerID"
+                                                    placeholder="C00-000" >
+                                                <span class="errorMessageId">cus id is required field: Pattern C00-000
+                                                </span>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label for="customerName" class="fw-bold">Customer Name:</label>
+                                                <input type="text" class="form-control" id="customerName"
+                                                    placeholder="Sachini" onkeyup="checkNameField()">
+                                                <span class="errorMessageName">cus name is required field: Minimum 5,Max
+                                                    20, Space Allowed </span>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label for="customerAddress" class="fw-bold">Customer Address:</label>
+                                                <input type="text" class="form-control" id="customerAddress"
+                                                    placeholder="Matara" onkeyup="checkFieldAddress()">
+                                                <span class="errorMessageAddress">cus Address is required field: Minimum
+                                                    5 </span>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label for="customerSalary" class="fw-bold">Customer Salary:</label>
+                                                <input type="text" class="form-control" id="customerSalary"
+                                                    placeholder="2000.00" onkeyup="checkFieldSalary()">
+                                                <span class="errorMessageSalary">cus Salary is required field: Pattern
+                                                    100.00 or 100 </span>
+                                            </div>
+                                            <div class="form-group text-center mt-4">
+                                                <button type="button"
+                                                    class="btn btn-primary mx-2 save_btn">Save</button>
+                                                <button type="button" class="btn btn-warning update_btn">Update</button>
+                                                <button type="button"
+                                                    class="btn btn-info mx-2 delete_btn">Delete</button>
+                                               
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+      
+        
+        
+        <section class="row mt-3 ">
+            <div class="col">
+                <table class="table table-hover table-borderless table-striped caption-top">
+                    <caption>All Customers</caption>
+                    <thead class="text-success rounded-3" style="background-color: #2d3d2d">
+
+                        <tr   id="trr" class="text-success"  >
+                            <th>CustomerID</th>
+                            <th>CustomerName</th>
+                            <th>CustomerAddress</th>
+                            <th>Salary</th>
+                            <!-- <th>Action</th> -->
+                        </tr>
+                    </thead>
+                    <tbody id="customerTable">
+
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </section>
+    </section>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <script src="/assest/js/script.js"></script>
+    <script type="module" src="controller/customer.js"></script>
+    <script type="module" src="controller/item.js"></script>
+    <script type="module" src="controller/order.js"></script>
+    <script type="module" src="controller/barchat.js"></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

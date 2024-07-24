@@ -1,0 +1,352 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+:root {
+    /* --green:#008000; */
+    --blue: #2a2185;
+    --white: #fff;
+    --gray: #f5f5f5;
+    --black1: #222;
+    --black2: #999;
+
+
+}
+
+body{
+    background-color: #E9ECEE;
+    /* background-color: black; */
+    background-image: url('/assest/image/abstract-blue-black-colorful-geometric-light-triangle-line-shape-with-futuristic-concept-presentation-background_181182-34640.png');
+    background-size: cover;
+        /* Make the background image cover the entire page */
+        background-repeat: no-repeat;
+        /* Prevent the background image from repeating */
+        background-position: center;
+        /* Center the background image */
+        height: 100vh;
+    
+}
+.navbar-brand {
+    font-weight: bold;
+    font-size: 30px;
+    font-family: 'Poppins';
+}
+.navtop {
+    background-color: #F9F8FB;
+    border-bottom: 3px solid black;
+    box-shadow: 0 2px 0px #363636;
+}
+
+.nav-item{
+    font-weight: 300;
+    font-family: 'Poppins';
+}
+.navigation:hover{
+    color: #1e14df !important;
+    cursor: pointer;
+}
+#homediv{
+    position: fixed;
+
+    padding: 20px;
+    z-index: 100;
+}
+.myCard{
+
+    width: 100%;
+    height: 250px;
+    background: #295635;
+    border-radius: 10px;
+
+}
+.myCard>i{
+    color: #dfc2c4;
+    font-size: 5em;
+    text-align: center;
+    display: block;
+    padding-top: 35px;
+    opacity:0.6;
+}
+
+.myCard>h1{
+    color: white;
+    font-size: 2em;
+    text-align: center;
+    font-family: Ubuntu;
+    padding-top: 20px;
+
+}
+
+.myCard>h2{
+    color: white;
+    font-size: 3em;
+    text-align: center;
+    font-family: Ubuntu;
+    padding-top: 2px;
+}
+.manageCustomer{
+    background-color: #131fcd;
+}
+.card-header{
+    background-color: #1909c9;
+}
+#addcustomer{
+    background-color: #067c8d !important;
+}
+
+.bg-light{
+    background-color: white;
+    border: 1px solid rgb(244, 238, 238);
+    border-radius: 12px;
+}
+
+.card-body{
+    border-radius: 10px;
+    background-color: white;
+    border: 2px solid rgb(174, 169, 169);
+}
+
+.card-header{
+    border-radius: 10px;
+}
+
+.col{
+    border-radius: 12px;
+    background-color: white;
+    border: 2px solid white;
+}
+
+
+
+caption{
+    font-size: 25px;
+    color: black;
+}
+
+/* tr{
+    background-color: #11171c;
+    color: white;
+}
+
+ #trr{
+    background-color: #101315;
+        color: white;
+} */ 
+
+a{
+    color: blue;
+}
+
+.navbar-nav .nav-item{
+    color: #54a7da;
+    font-size: 20px;
+}
+
+.navbar-nav .nav-item:hover{
+    color: black;
+   
+
+}
+
+#addcustomer{
+    background-color:#0b7f41 !important;
+}
+.errorMessageId, .errorMessageName, .errorMessageAddress, .errorMessageSalary,.errorMessageItemId,.errorMessageItemName,.errorMessageItemPrice,.errorMessageItemQty,.errorOrderQty,.errorQty,#cashError,#DiscountError{
+    color: red;
+    display: none;
+}
+
+
+
+/* ===========================barchat================================= */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+    border: 2px solid white;
+    border-radius: 12px;
+}
+
+.chart-container {
+    width: 30%;
+    margin: 20px;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+/* =====================================customer resert=================================== */
+
+ /* customers detalis recent */
+
+ .recentCustomer {
+     position: relative;
+     display: grid;
+     min-height: 500px;
+     padding: 20px;
+     background: var(--white);
+     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+     border-radius: 20px;
+     width: 500px;
+
+ }
+
+ .recentCustomer .imgBx {
+     position: relative;
+     width: 40px;
+     height: 40px;
+     border-radius: 50px;
+     overflow: hidden;
+ }
+
+ .recentCustomer .imgBx img {
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+
+ }
+
+ .recentCustomer table tr:hover {
+     background: var(--blue);
+     color: var(--white);
+ }
+
+ .recentCustomer table tr td {
+     padding: 12px 10px;
+ }
+
+ .recentCustomer table tr td h4 {
+     font-size: 16px;
+     font-weight: 500;
+     line-height: 1.2rem;
+ }
+
+ .recentCustomer table tr td h5 {
+     font-size: 14px;
+     color: var(--black2);
+ }
+
+ /* =============button================ */
+
+ .btn_addItem {
+     background-color: #131fcd;
+     border-radius: 12px;
+
+ }
+
+ .btn_addItem:hover {
+     color: green;
+     background-color: green;
+     font-size: 20px;
+ }
+
+ .btnPurchase {
+     background-color: #dfc2c4;
+ }
+
+ #btn {
+     background-color: green;
+ }
+
+ .card-header {
+     border-radius: 12px;
+ }
+
+ /* 
+           .text-success{
+            background-color: rgb(135, 163, 135);
+            border-radius: 12px;
+           } */
+
+ /* .trr th{
+            background-color: green;
+           }
+
+         .col .table-hover .text-success tr{
+            color: white;
+            background-color: green;
+         } */
+
+ tr:hover {
+     cursor: pointer;
+     color: white;
+     background-color: gray;
+     /* background-color: blue; */
+     /* background-color: green; */
+ }
+ 
+ /* responcive */
+
+ @media screen and (max-width:575px) {
+
+    section{
+         display: grid;
+         margin-top: 10px;
+
+     }
+          .row {
+              display: grid;
+              grid-template-columns: repeat(1, 1fr);
+    
+          }
+
+ }
+
+ @media screen and (min-width:575px) and (max-width:767px) {
+
+    section {
+            display: grid;
+            margin-top: 10px;
+    
+        }
+                 .row {
+                     display: grid;
+                     grid-template-columns: repeat(1, 1fr);
+        
+                 }
+
+ }
+
+ @media screen and (min-width:768px) and (max-width:991px) {
+
+    section {
+            display: grid;
+            margin-top: 10px;
+    
+        }
+                
+
+ }
+
+ @media screen and (min-width:992px) and (max-width:1199px) {
+
+    section {
+            display: grid;
+            margin-top: 10px;
+    
+        }
+
+                 
+ }
+
+ @media screen and (min-width:1200px) and (max-width:1399px) {
+
+    section {
+            display: grid;
+            margin-top: 10px;
+    
+        }
+
+ }
