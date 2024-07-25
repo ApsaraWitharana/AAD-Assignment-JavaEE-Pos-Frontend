@@ -80,6 +80,24 @@ $(".save_btn").on('click', () => {
     }else {
         clearField();
     }
+
+    $.ajax({
+        url: "http://localhost:8080/pos_system/customer",
+        method: "post",
+        contentType: "application/json",
+        data: JSON.stringify(customObj),
+        success: function (resp, textStatus, jqxhr) {
+            alert("Customer saved successfully!!");
+            getAllCustomers();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            if(jqXHR.status == 409){
+                alert("Duplicate values. Please check again");
+            } else {
+                alert("Error: Customer not added");
+            }
+        }
+    });
 });
 
 $("#customerTable").on('click', 'tr', function() {
