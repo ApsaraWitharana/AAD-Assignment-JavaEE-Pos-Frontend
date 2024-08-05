@@ -82,7 +82,7 @@ $(".save_btn").click(function() {
         data: jsonObj,
         success: function (resp, textStatus, jqxhr) {
             if(jqxhr.status==201){
-                alert("customer saved successfully");
+                alert("Customer saved successfully!!!");
                 loadAllCustomerId();
                 loadTable();
                 clearField();
@@ -90,69 +90,16 @@ $(".save_btn").click(function() {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             if(jqXHR.status==409){
-                alert("Duplicate values. Please check again");
+                alert("Duplicate values. Please check again!!");
                 return;
             }else{
-                alert("Something happened. Customer not added");
+                alert("Something happened. Customer not added!!");
             }
         }
     });
 });
 
-// $(".save_btn").on('click', () => {
-
-//     let alertConfrim = confirm('Do you want to add this customer ??');
-//     if (alertConfrim==true) {
-
-//         var customerID = $('#customerID').val();
-//         var customerName = $('#customerName').val();
-//         var customerAddress = $('#customerAddress').val();
-//         var customerSalary = $('#customerSalary').val();
-
-//         let customerObj = new customerModel(
-//             customerID, customerName, customerAddress, customerSalary
-//         );
-
-//         customer.push(customerObj);
-
-//         loadAllCustomerId();
-//         loadTable();
-//         clearField();
-//     }else {
-//         clearField();
-//     }
-
-    // $.ajax({
-    //     url: "http://localhost:8080/Pos_System/customer",
-    //     method: "post",
-    //     contentType: "application/json",
-    //     data: JSON.stringify(customObj),
-    //     success: function (resp, textStatus, jqxhr) {
-    //         alert("Customer saved successfully!!");
-    //         getAllCustomers();
-    //     },
-    //     error: function (jqXHR, textStatus, errorThrown) {
-    //         if(jqXHR.status == 409){
-    //             alert("Duplicate values. Please check again");
-    //         } else {
-    //             alert("Error: Customer not added");
-    //         }
-    //     }
-    // });
-    //  $.ajax({
-    //         url: "http://localhost:8080/Pos_System/customer",
-    //         type: "POST",
-    //         data: studentJson,
-    //         headers:{"Content-Type":"application/json"} ,
-    //         success: function(res) {
-    //             console.log(JSON.stringify(res));
-    //         },
-    //         error: function(res) {
-    //             console.error(res);
-    //         }
-    //     });
-    
-// });
+//---------------------------------------------------------
 
 $("#customerTable").on('click', 'tr', function() {
     let index = $(this).index();
@@ -178,13 +125,45 @@ $("#customerTable").on('dblclick','tr',function() {
     }
 });
 
+///==================**delte btn action**===============
 
-$(".delete_btn").on('click', () => {
-     alert("Do you want to delete this customer??")
-    customer.splice(recordIndex, 1);
-    loadTable();
-    clearField();
-});
+$(".delete_btn").click(function () {
+    let id = $("#customerID").val().trim();
+    deleteCustomer(id.trim());
+     
+    
+
+})
+
+//-----------------------------------
+function deleteCustomer(id) {
+    let customer = findCustomer(id, function (customerId) {
+        console.log(customerId);
+        if (customerId == undefined) {
+            alert("No customer with the id: " + id + " found");
+        } else {
+             $.ajax({
+                url: "http://localhost:8080/Pos_System/customer?id="+id,
+                method: "delete",
+                success: function (resp, textStatus, jqXHR){
+                    console.log(resp);
+
+                    if(jqXHR.status==204){
+                        alert("Customer deleted successfully!!");
+                        // clearTxtFields();
+                        // getAllCustomers();
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("Something happened. Customer not removed");
+                }
+            });
+        }
+    });
+}
+
+//========================================================
+
 
 //  function deleteCustomer(id, button, customers) {
 //                     if (confirm(`Are you sure you want to delete customer ${id}?`)) {
@@ -205,22 +184,47 @@ function clearField(){
     $("#customerSalary").val('');
 }
 
-$(".update_btn").on('click', () => {
-    alert("Customer update successfuly!!!")
-    var customerID = $('#customerID').val();
-    var customerName = $('#customerName').val();
-    var customerAddress = $('#customerAddress').val();
-    var customerSalary = $('#customerSalary').val();
+//====================***update btn action ***========================================
+$(".update_btn").click (function (){
+    
+    let id = $('#customerID').val().trim();
+    let name = $('#customerName').val();
+    let address = $('#customerAddress').val();
+    let salary = $('#customerSalary').val();
 
-    let customerUpdateObj = customer[recordIndex];
-    customerUpdateObj.id=customerID;
-    customerUpdateObj.name=customerName;
-    customerUpdateObj.address=customerAddress;
-    customerUpdateObj.salary=customerSalary
+     let custObj ={
+        id: id,
+        name: name,
+        address: address,
+        salary: salary
+    }
 
-    loadTable();
-    clearField();
-});
+   let jsonObj = JSON.stringify(custObj);
+ $.ajax({
+        url: "http://localhost:8080/Pos_System/customer",
+        method: "put",
+        contentType: "application/json",
+        data: jsonObj,
+        success: function (resp, textStatus, jqxhr) {
+            if(jqxhr.status==201){
+                alert("Customer update successfuly!!!")
+                loadAllCustomerId();
+                loadTable();
+                clearField();
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            if(jqXHR.status==409){
+                alert("Duplicate values. Please check again");
+                return;
+            }else{
+                alert("Something happened. Customer not added");
+            }
+        }
+    });
+})
+
+//=======================================================================
 q
 function loadAllCustomerId() {
     $('#cusIdOption').empty();
@@ -229,7 +233,7 @@ function loadAllCustomerId() {
     }
 }
 
-$("#searchb").on('click', () => {
+$("#searchb").click (function (){
     alert("Customer search successfuly!!!")
     var customerID = $('#customerID').val();
     var customerName = $('#customerName').val();
