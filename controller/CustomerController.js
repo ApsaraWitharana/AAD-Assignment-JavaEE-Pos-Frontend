@@ -1,7 +1,7 @@
 
 getAllCustomers();
 
-
+import {customer} from '/db/db.js';
 
 // var recordIndex;
 // $(document).ready(function () {
@@ -251,20 +251,20 @@ function getAllCustomers() {
 
     $.ajax({
         url: "http://localhost:8080/Pos_System/customer?function=getAll",
-        method: "get",
+        method: "GET",
         dataType: "json",
         success: function (resp, textStatus, jqxhr) {
             console.log(resp);
 
             $.each(resp, function(index, customer) {
                 let row = `
-                     <tr>
-                <td class="customer-id-value">${item.id}</td>
-                <td class="customer-name-value">${item.name}</td> 
-                <td class="customer-address-value">${item.address}</td>
-                <td class="customer-salary-value">${item.salary}</td> 
-            </tr>
-                `
+                    <tr>
+                        <td class="customer-id-value">${customer.id}</td>
+                        <td class="customer-name-value">${customer.name}</td> 
+                        <td class="customer-address-value">${customer.address}</td>
+                        <td class="customer-salary-value">${customer.salary}</td> 
+                    </tr>
+                `;
                 $("#customerTable").append(row);
             });
             onTblRowClick();
@@ -274,6 +274,7 @@ function getAllCustomers() {
         }
     });
 }
+
 
 //----------------------------------------------
 
