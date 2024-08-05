@@ -1,5 +1,7 @@
-import customerModel from '/model/customerModel.js';
-import {customer} from '/db/db.js';
+
+getAllCustomers();
+
+
 
 var recordIndex;
 $(document).ready(function () {
@@ -21,7 +23,7 @@ function getAllCustomers() {
     $("#customerTable").empty();
 
     $.ajax({
-        url: "",
+        url: "http://localhost:8080/Pos_System/customer",
         method: "GET",
         dataType: "json",
         success: function (res) {
@@ -58,47 +60,99 @@ function loadTable(){
     });
 }
 
-$(".save_btn").on('click', () => {
+//save btn action ------------------------------------------------------------------------------------------------------
+$(".save_btn").click(function() {
+    let id = $("#customerID").val();
+    let name = $("#customerName").val();
+    let address = $("#customerAddress").val();
+    let salary = $("#customerSalary").val();
 
-    let alertConfrim = confirm('Do you want to add this customer ??');
-    if (alertConfrim==true) {
-
-        var customerID = $('#customerID').val();
-        var customerName = $('#customerName').val();
-        var customerAddress = $('#customerAddress').val();
-        var customerSalary = $('#customerSalary').val();
-
-        let customerObj = new customerModel(
-            customerID, customerName, customerAddress, customerSalary
-        );
-
-        customer.push(customerObj);
-
-        loadAllCustomerId();
-        loadTable();
-        clearField();
-    }else {
-        clearField();
+    let custObj ={
+        id: id,
+        name: name,
+        address: address,
+        salary: salary
     }
 
+    let jsonObj = JSON.stringify(custObj);
     $.ajax({
-        url: "http://localhost:8080/pos_system/customer",
+        url: "http://localhost:8080/Pos_System/customer",
         method: "post",
         contentType: "application/json",
-        data: JSON.stringify(customObj),
+        data: jsonObj,
         success: function (resp, textStatus, jqxhr) {
-            alert("Customer saved successfully!!");
-            getAllCustomers();
+            if(jqxhr.status==201){
+                alert("customer saved successfully");
+                loadAllCustomerId();
+                loadTable();
+                clearField();
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            if(jqXHR.status == 409){
+            if(jqXHR.status==409){
                 alert("Duplicate values. Please check again");
-            } else {
-                alert("Error: Customer not added");
+                return;
+            }else{
+                alert("Something happened. Customer not added");
             }
         }
     });
 });
+
+// $(".save_btn").on('click', () => {
+
+//     let alertConfrim = confirm('Do you want to add this customer ??');
+//     if (alertConfrim==true) {
+
+//         var customerID = $('#customerID').val();
+//         var customerName = $('#customerName').val();
+//         var customerAddress = $('#customerAddress').val();
+//         var customerSalary = $('#customerSalary').val();
+
+//         let customerObj = new customerModel(
+//             customerID, customerName, customerAddress, customerSalary
+//         );
+
+//         customer.push(customerObj);
+
+//         loadAllCustomerId();
+//         loadTable();
+//         clearField();
+//     }else {
+//         clearField();
+//     }
+
+    // $.ajax({
+    //     url: "http://localhost:8080/Pos_System/customer",
+    //     method: "post",
+    //     contentType: "application/json",
+    //     data: JSON.stringify(customObj),
+    //     success: function (resp, textStatus, jqxhr) {
+    //         alert("Customer saved successfully!!");
+    //         getAllCustomers();
+    //     },
+    //     error: function (jqXHR, textStatus, errorThrown) {
+    //         if(jqXHR.status == 409){
+    //             alert("Duplicate values. Please check again");
+    //         } else {
+    //             alert("Error: Customer not added");
+    //         }
+    //     }
+    // });
+    //  $.ajax({
+    //         url: "http://localhost:8080/Pos_System/customer",
+    //         type: "POST",
+    //         data: studentJson,
+    //         headers:{"Content-Type":"application/json"} ,
+    //         success: function(res) {
+    //             console.log(JSON.stringify(res));
+    //         },
+    //         error: function(res) {
+    //             console.error(res);
+    //         }
+    //     });
+    
+// });
 
 $("#customerTable").on('click', 'tr', function() {
     let index = $(this).index();
