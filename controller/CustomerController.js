@@ -3,62 +3,37 @@ getAllCustomers();
 
 
 
-var recordIndex;
-$(document).ready(function () {
-    getAllCustomers(); // Corrected function name
+// var recordIndex;
+// $(document).ready(function () {
+//     getAllCustomers(); // Corrected function name
 
-    $(".save_btn").click(function () {
-        if (checkAll()) {
-            saveCustomer();
-        } else {
-            alert("Error");
-        }
-    });
+//     $(".save_btn").click(function () {
+//         if (checkAll()) {
+//             saveCustomer();
+//         } else {
+//             alert("Error");
+//         }
+//     });
 
-    // Other event handlers...
-    clearField();
-});
+//     // Other event handlers...
+//     clearField();
+// });
 
-function getAllCustomers() {
-    $("#customerTable").empty();
 
-    $.ajax({
-        url: "http://localhost:8080/Pos_System/customer",
-        method: "GET",
-        dataType: "json",
-        success: function (res) {
-            var rows = "";
-            $.each(res.data, function (index, c) {
-                let customerId = c.id;
-                let customerName = c.name;
-                let customerAddress = c.address;
-                let customerSalary = c.salary;
-                let row = "<tr><td>" + customerId + "</td><td>" + customerName + "</td><td>" + customerAddress + "</td><td>" + customerSalary + "</td></tr>";
-                rows += row;
-                console.log(JSON.stringify(res))
-            });
-            $("#customerTable").append(rows);
-        },
-        error: function (xhr, status, error) {
-            console.error("AJAX request failed:", status, error);
-        }
-    });
-}
+// function loadTable(){
+//     $('#customerTable').empty();
 
-function loadTable(){
-    $('#customerTable').empty();
-
-    customer.map((item, index) => {
-        let record = `
-            <tr>
-                <td class="customer-id-value">${item.id}</td>
-                <td class="customer-name-value">${item.name}</td> 
-                <td class="customer-address-value">${item.address}</td>
-                <td class="customer-salary-value">${item.salary}</td> 
-            </tr>`;
-        $("#customerTable").append(record);
-    });
-}
+//     customer.map((item, index) => {
+//         let record = `
+//             <tr>
+//                 <td class="customer-id-value">${item.id}</td>
+//                 <td class="customer-name-value">${item.name}</td> 
+//                 <td class="customer-address-value">${item.address}</td>
+//                 <td class="customer-salary-value">${item.salary}</td> 
+//             </tr>`;
+//         $("#customerTable").append(record);
+//     });
+// }
 
 //save btn action ------------------------------------------------------------------------------------------------------
 $(".save_btn").click(function() {
@@ -140,7 +115,8 @@ function deleteCustomer(id) {
     let customer = findCustomer(id, function (customerId) {
         console.log(customerId);
         if (customerId == undefined) {
-            alert("No customer with the id: " + id + " found");
+            // alert("Customer deleted successfully!!");
+            alert("No customer  id: " + id + " found");
         } else {
              $.ajax({
                 url: "http://localhost:8080/Pos_System/customer?id="+id,
@@ -148,10 +124,10 @@ function deleteCustomer(id) {
                 success: function (resp, textStatus, jqXHR){
                     console.log(resp);
 
-                    if(jqXHR.status==204){
+                    if(jqXHR.status==201){
                         alert("Customer deleted successfully!!");
-                        // clearTxtFields();
-                        // getAllCustomers();
+                        clearTxtFields();
+                        getAllCustomers();
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -162,26 +138,17 @@ function deleteCustomer(id) {
     });
 }
 
-//========================================================
+//================**clear text field**========================================
 
-
-//  function deleteCustomer(id, button, customers) {
-//                     if (confirm(`Are you sure you want to delete customer ${id}?`)) {
-//                         const index = customers.findIndex(customer => customer.id == id);
-//                         if (index !== -1) {
-//                             customers.splice(index, 1);
-//                             const row = button.parentNode.parentNode;
-//                             row.remove();
-//                         }
-//                     }
-//                 }
 
 
 function clearField(){
-    $("#customerID").val('');
-    $("#customerName").val('');
-    $("#customerAddress").val('');
-    $("#customerSalary").val('');
+    $("#customerID").val(''),
+    $("#customerName").val(''),
+    $("#customerAddress").val(''),
+    $("#customerSalary").val(''),
+    setBtn();
+    $(".fw-bold").css("display", "none");
 }
 
 //====================***update btn action ***========================================
@@ -232,55 +199,123 @@ function loadAllCustomerId() {
         $('#cusIdOption').append(`<option>${customerArElement.id}</option>`);
     }
 }
-
+//=============search btn cation ==================
 $("#searchb").click (function (){
+    let custId = $("#form-control").val();
+
     alert("Customer search successfuly!!!")
-    var customerID = $('#customerID').val();
-    var customerName = $('#customerName').val();
-    var customerAddress = $('#customerAddress').val();
-    var customerSalary = $('#customerSalary').val();
+    
+    $.ajax({
+        url: "http://localhost:8080/Pos_System/customer?function=getById&id="+custId,
+        method: "get",
+        dataType: "json",
+        success: function (resp, textStatus, jqXHR){
+            console.log(resp);
 
-    // let customerUpdateObj = customer[recordIndex];
-    // customerUpdateObj.id=customerID;
-    // customerUpdateObj.name=customerName;
-    // customerUpdateObj.address=customerAddress;
-    // customerUpdateObj.salary=customerSalary
+            if(resp.id == undefined){
+                alert("No customer  id: " + custId);
+                $("#form-control").val("");
+                return;
+            }
+            setDataToTxtFields(resp.id, resp.name, resp.address, resp.contact);
+            $("#form-control").val("");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR);
+        }
+    });
+})
 
-    loadAllCustomerId();
-    // loadTable();
-    // clearField();
+//-----------------------------------------------
 
-});
+function findCustomer(id, callback) {
+    $.ajax({
+        url: "http://localhost:8080/Pos_System/customer?function=getById&id="+id,
+        method: "get",
+        dataType: "json",
+        success: function (resp, textStatus, jqXHR){
+            callback(resp.id);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR);
+            callback(null);
+        }
+    });
+}
+//============================================================
 
 
 
-/*Search Customer*/
-// $('#btnSearchButton').click(function () {
+function getAllCustomers() {
+    $("#customerTable").empty();
 
-//     for (let customerKey of customerAr) {
+    $.ajax({
+        url: "http://localhost:8080/Pos_System/customer?function=getAll",
+        method: "get",
+        dataType: "json",
+        success: function (resp, textStatus, jqxhr) {
+            console.log(resp);
 
-//         //check the ComboBox Id Equal
-//         console.log($('#cusCombo').val());
+            $.each(resp, function(index, customer) {
+                let row = `
+                     <tr>
+                <td class="customer-id-value">${item.id}</td>
+                <td class="customer-name-value">${item.name}</td> 
+                <td class="customer-address-value">${item.address}</td>
+                <td class="customer-salary-value">${item.salary}</td> 
+            </tr>
+                `
+                $("#customerTable").append(row);
+            });
+            onTblRowClick();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+}
 
-//         if($('#cusCombo').val()==="ID"){
-//             //check Id
-//             // alert(customerKey.id+"=="+$('#inputCusSearch').val());
+//----------------------------------------------
 
-//             if(customerKey.customerID===$('#inputCusSearch').val()){
-//                 $('#customerID').val(customerKey.customerID);
-//                 $('#customerName').val(customerKey.customerName);
-//                 $('#customerSalary').val(customerKey.customerSalary);
-//                 $('#customerAddress').val(customerKey.customerAddress);
-//             }
-//         }else if($('#cusCombo').val()==="1"){
-//             //check Name
-//             if(customerKey.customerName===$('#inputCusSearch').val()){
-//                 $('#customerID').val(customerKey.customerID);
-//                 $('#customerName').val(customerKey.customerName);
-//                 $('#customerSalary').val(customerKey.customerSalary);
-//                 $('#customerAddress').val(customerKey.customerAddress);
-//             }
-//         }
-//     }
-// });
+function onTblRowClick() {
+    let singleClickTimer;
 
+    $("#customerTable>tr").on("mousedown", function (event) {
+        if (event.which === 1) { // Left mouse button (1) clicked
+            let row = $(this);
+            if (singleClickTimer) {
+                clearTimeout(singleClickTimer);
+                singleClickTimer = null;
+                //  double click
+                deleteCustomer(row.children().eq(0).text());
+                getAllCustomers();
+            } else {
+                singleClickTimer = setTimeout(function () {
+                    singleClickTimer = null;
+                    //  single click
+                    let id = row.children().eq(0).text();
+                    let name = row.children().eq(1).text();
+                    let address = row.children().eq(2).text();
+                    let contact = row.children().eq(3).text();
+                    setDataToTxtFields(id, name, address, contact);
+                    $(".delete_btn").prop("disabled", false);
+                    $(".card-body").collapse("show");
+                    $(".card-body")[0].scrollIntoView({ behavior: "smooth", block: "center" });
+                }, 300); // Adjust the delay (300 milliseconds) as needed
+            }
+        }
+    });
+}
+//===========================
+
+function setDataToTxtFields(id,name,address,contact){
+    $(".card-body").collapse("show");
+      $("#customerID").val(id);
+    $("#customerName").val(name);
+    $("#customerAddress").val(address);
+    $("#customerSalary").val(salary);
+
+    $("#customerID,#customerName,#customerAddress,#customerSalary").addClass("border-secondary-subtle");
+    setBtn();
+    $(".delete_btn").prop("disabled", false);
+}
