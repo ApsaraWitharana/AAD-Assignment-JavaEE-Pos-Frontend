@@ -51,3 +51,14 @@ Customer Form
 Order Form
 
 ![Screenshot 2024-06-02 230217](https://github.com/ApsaraWitharana/Pos-System--Bootstrap/assets/139870615/e69bb393-7067-4b35-aa7a-45d649307023)
+
+
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+<div align="center">
+
+#### This project is licensed under the [MIT License](LICENSE)
+
+#### © 2024 All Right Reserved, Designed By [Sachini Apsara](https://github.com/ApsaraWitharana)
+
+</div>
