@@ -82,39 +82,108 @@ $("#ItemsTable").on('dblclick','tr',function() {
     }
 });
 //==========**delete btn action===================
-$(".item_delete_btn").click (function () {
-     alert("Do You Want to Delete this item??")
-     let id = $("#IID")
-    deleteItem(id.trim());
-  
-});
+$(document).ready(function() {
+    $(".item_delete_btn").click(function () {
+        let code = $("#IID").val().trim();
+        if (code) {
+            deleteItem(code);
+        } else {
+            alert("Please enter an item code.");
+        }
+    });
+
 
 //-----------
-function deleteItem(id) {
-    let item = findItem(id, function (itemId) {
-        console.log(itemId);
-        if (itemId == undefined) {
-            alert("No item with the id: " + id + " found");
+function deleteItem(code) {
+    let item = findItem(code, function(item) {
+        if (!item) {
+            alert("No item with the code: " + code + " found");
         } else {
             $.ajax({
-                url: "http://localhost:8080/Pos_System/item?id="+id,
-                method: "delete",
-                success: function (resp, textStatus, jqXHR){
+                url: "http://localhost:8080/Pos_System/item",
+                method: "DELETE",
+                data: { code: code },
+                success: function (resp, textStatus, jqXHR) {
                     console.log(resp);
 
-                    if(jqXHR.status==201){
-                        alert("item deleted successfully!!");
-                        clearItemTxtFields();
+                    if (jqXHR.status === 201) {
+                        alert("Item deleted successfully!!");
+                        // Optionally, refresh the item list
                         getAllItems();
+                        clearField();
+                    } else {
+                        alert("Failed to delete the item. Status: " + jqXHR.status);
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    alert("Something happened. item not removed");
+                    alert("Something went wrong. Item not removed. Error: " + textStatus);
+                    console.error("Error details:", errorThrown);
                 }
             });
         }
     });
 }
+});
+// function clearField() {
+//     $("#IID").val('');
+// }
+
+// // Assuming you have an array or object where items are stored
+// function findItem(code, callback) {
+//     // Replace this with your actual implementation
+//     // Simulating an item lookup
+//     let items = [
+//         { code: '1', name: 'Item 1' },
+//         { code: '2', name: 'Item 2' }
+//     ];
+//     let item = items.find(item => item.code === code);
+//     callback(item);
+// }
+
+// $(document).ready(function() {
+//     $(".item_delete_btn").click(function () {
+//         let id = $("#IID").val().trim();
+//         if (id) {
+//             deleteItem(id);
+//         } else {
+//             alert("Please enter an ID.");
+//         }
+//     });
+// });
+
+// function deleteItem(id) {
+//     $.ajax({
+//         url: "http://localhost:8080/Pos_System/item?id=" + id,
+//         method: "delete",
+//         success: function (resp, textStatus, jqXHR) {
+//             console.log(resp);
+
+//             if (jqXHR.status == 201) {
+//                 alert("Item deleted successfully!!");
+//                 // getAllItems(); // Uncomment if you want to refresh the item list
+//                 clearField();
+//             } else {
+//                 alert("Failed to delete the item. Status: " + jqXHR.status);
+//             }
+//         },
+//         error: function (jqXHR, textStatus, errorThrown) {
+//             alert("Something went wrong. Item not removed. Error: " + textStatus);
+//         }
+//     });
+// }
+
+// function clearField() {
+//     $("#IID").val('');
+// }
+
+// // Make sure findItem function exists and correctly returns the item ID
+// function findItem(id, callback) {
+//     // Assuming you have an array or object where items are stored
+//     let items = []; // Replace with your actual items array
+//     let item = items.find(item => item.id === id);
+//     callback(item ? item.id : undefined);
+// }
+
 //===========clear field=============
 function clearField(){
     $("#IID").val(''),
