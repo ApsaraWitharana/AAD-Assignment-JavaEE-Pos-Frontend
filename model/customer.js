@@ -1,13 +1,11 @@
-// let Customer = {
-//     id: "",
-//     name: "",
-//     address: "",
-//     salary: "",
+ let custObj= {
+        id: "",
+        name: "",
+        address: "",
+        salary: ""
+    }
 
-// }
-let customer = 'John Doe';
-// Some other logic
-customer = 'Jane Doe'; // Reassign if needed without redeclaring
+
 console.log(customer)
 export default class customerModel{
     constructor(id,name,address,salary) {
@@ -17,11 +15,6 @@ export default class customerModel{
         this._salary = salary;
     }
 
- Customer = {
-    id: "",
-    name: "",
-    address: "",
-    salary: "",
-
-}
+ 
+    
 }
