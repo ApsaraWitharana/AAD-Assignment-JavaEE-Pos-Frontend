@@ -30,6 +30,22 @@ The POS System Frontend is a web-based application designed to handle sales tran
 - jQuery
 - Bootstrap (if applicable)
 - AJAX for API calls
+## Project Structure
+
+### Front-end
+
+The front-end code is organized in a structured manner, ensuring clarity and maintainability. Key directories and files include:
+
+- index.html: The main entry point for the web application.
+- contollers/: Directory for JavaScript files, including jQuery and AJAX functionality.
+- contollers/validations/: Directory for validation contollers
+- assets/: Other resources used in the application, bootstrap, font-awesome and jquery
+#### Front-end
+
+- jQuery : JavaScript library for simplifying client-side scripting. (Version 3.3.1)
+- Bootstrap : Front-end framework for responsive and mobile-first web development. (Version 5.3.2)
+- Font-Awesome : Icon font and CSS framework for scalable vector icons. (Version 6.4.2)
+
 
 ## Setup and Installation
 To set up the project locally, follow these steps:
