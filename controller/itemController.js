@@ -1,4 +1,4 @@
-import itemModel from '/model/itemModel.js';
+// import itemModel from '/model/itemModel.js';
 import {items} from '/db/db.js';
 
 var recordIndex;
@@ -42,8 +42,8 @@ $(".item_save_btn").click(function() {
         success: function (resp, textStatus, jqxhr) {
             if(jqxhr.status==201){
                 alert("item added successfully!!!");
-                clearField();
                 getAllItems();
+                clearField();
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -204,14 +204,14 @@ function getAllItems() {
 
             $.each(resp, function(index, item) {
                 approximatedNumber = item.price.toFixed(2);
-                let row = 
+                let row = `
                      <tr>
                 <td class="item-id-value">${item.id}</td>
                 <td class="item-name-value">${item.name}</td> 
                 <td class="item-price-value">${item.price}</td>
                 <td class="item-qty-value">${item.qty}</td> 
             </tr>
-                
+               `;
                 $("#ItemsTable").append(row);
             });
             onTblItemRowClick();

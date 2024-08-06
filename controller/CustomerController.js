@@ -1,6 +1,6 @@
 
 getAllCustomers();
-import {} from '/model/customer.js';
+// import {} from '/model/customer.js';
 import {customer} from '/db/db.js';
 
 
@@ -59,7 +59,6 @@ $(".save_btn").click(function() {
         success: function (resp, textStatus, jqxhr) {
             if(jqxhr.status==201){
                 alert("Customer saved successfully!!!");
-               
                 getAllCustomers();
                 clearField();
             }
