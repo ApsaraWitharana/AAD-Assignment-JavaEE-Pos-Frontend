@@ -1,7 +1,8 @@
 
 getAllCustomers();
-
+import {} from '/model/customer.js';
 import {customer} from '/db/db.js';
+
 
 // var recordIndex;
 // $(document).ready(function () {
@@ -58,8 +59,8 @@ $(".save_btn").click(function() {
         success: function (resp, textStatus, jqxhr) {
             if(jqxhr.status==201){
                 alert("Customer saved successfully!!!");
-                loadAllCustomerId();
-                loadTable();
+               
+                getAllCustomers();
                 clearField();
             }
         },
@@ -71,34 +72,35 @@ $(".save_btn").click(function() {
                 alert("Something happened. Customer not added!!");
             }
         }
+        
     });
 });
 
 //---------------------------------------------------------
 
-$("#customerTable").on('click', 'tr', function() {
-    let index = $(this).index();
-    recordIndex = index;
+// $("#customerTable").on('click', 'tr', function() {
+//     let index = $(this).index();
+//     recordIndex = index;
 
-    let id = $(this).find(".customer-id-value").text();
-    let name = $(this).find(".customer-name-value").text();
-    let address = $(this).find(".customer-address-value").text();
-    let salary = $(this).find(".customer-salary-value").text();
+//     let id = $(this).find(".customer-id-value").text();
+//     let name = $(this).find(".customer-name-value").text();
+//     let address = $(this).find(".customer-address-value").text();
+//     let salary = $(this).find(".customer-salary-value").text();
 
 
-    $("#customerID").val(id);
-    $("#customerName").val(name);
-    $("#customerAddress").val(address);
-    $("#customerSalary").val(salary);
-});
-$("#customerTable").on('dblclick','tr',function() {
-    let alertConfrimDelete = confirm('Do you want to delete this customer??');
-    if (alertConfrimDelete==true) {
-        let index = $(this).index();
-        recordIndex = index;
-        $('.delete_btn').click;
-    }
-});
+//     $("#customerID").val(id);
+//     $("#customerName").val(name);
+//     $("#customerAddress").val(address);
+//     $("#customerSalary").val(salary);
+// });
+// $("#customerTable").on('dblclick','tr',function() {
+//     let alertConfrimDelete = confirm('Do you want to delete this customer??');
+//     if (alertConfrimDelete==true) {
+//         let index = $(this).index();
+//         recordIndex = index;
+//         $('.delete_btn').click;
+//     }
+// });
 
 ///==================**delte btn action**===============
 
@@ -126,7 +128,7 @@ function deleteCustomer(id) {
 
                     if(jqXHR.status==201){
                         alert("Customer deleted successfully!!");
-                        clearTxtFields();
+                         clearField();
                         getAllCustomers();
                     }
                 },
@@ -176,7 +178,6 @@ $(".update_btn").click (function (){
             if(jqxhr.status==201){
                 alert("Customer update successfuly!!!")
                 loadAllCustomerId();
-                loadTable();
                 clearField();
             }
         },
@@ -192,13 +193,13 @@ $(".update_btn").click (function (){
 })
 
 //=======================================================================
-q
-function loadAllCustomerId() {
-    $('#cusIdOption').empty();
-    for (let customerArElement of customer) {
-        $('#cusIdOption').append(`<option>${customerArElement.id}</option>`);
-    }
-}
+// q
+// function loadAllCustomerId() {
+//     $('#cusIdOption').empty();
+//     for (let customerArElement of customer) {
+//         $('#cusIdOption').append(`<option>${customerArElement.id}</option>`);
+//     }
+// }
 //=============search btn cation ==================
 $("#searchb").click (function (){
     let custId = $("#form-control").val();
@@ -246,12 +247,13 @@ function findCustomer(id, callback) {
 
 
 
+
 function getAllCustomers() {
     $("#customerTable").empty();
 
     $.ajax({
         url: "http://localhost:8080/Pos_System/customer?function=getAll",
-        method: "GET",
+        method: "Get",
         dataType: "json",
         success: function (resp, textStatus, jqxhr) {
             console.log(resp);
@@ -259,10 +261,10 @@ function getAllCustomers() {
             $.each(resp, function(index, customer) {
                 let row = `
                     <tr>
-                        <td class="customer-id-value">${customer.id}</td>
-                        <td class="customer-name-value">${customer.name}</td> 
-                        <td class="customer-address-value">${customer.address}</td>
-                        <td class="customer-salary-value">${customer.salary}</td> 
+                        <td>${customer.id}</td>
+                        <td>${customer.name}</td>
+                        <td>${customer.address}</td>
+                        <td>${customer.salary}</td>
                     </tr>
                 `;
                 $("#customerTable").append(row);
