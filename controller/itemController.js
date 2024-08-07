@@ -93,15 +93,16 @@ $(document).ready(function() {
     });
 
 
-//-----------
+// //-----------
 function deleteItem(code) {
     let item = findItem(code, function(item) {
-        if (!item) {
-            alert("No item with the code: " + code + " found");
-        } else {
+        // if (!item) {
+        //     alert("No item with the code: " + code + " found");
+        // } else
+         {
             $.ajax({
-                url: "http://localhost:8080/Pos_System/item",
-                method: "DELETE",
+              "url": "http://localhost:8080/Pos_System/item?code="+code,
+                method: "delete",
                 data: { code: code },
                 success: function (resp, textStatus, jqXHR) {
                     console.log(resp);
@@ -109,7 +110,7 @@ function deleteItem(code) {
                     if (jqXHR.status === 201) {
                         alert("Item deleted successfully!!");
                         // Optionally, refresh the item list
-                        getAllItems();
+                        //getAllItems();
                         clearField();
                     } else {
                         alert("Failed to delete the item. Status: " + jqXHR.status);
@@ -123,7 +124,24 @@ function deleteItem(code) {
         }
     });
 }
-});
+})
+//  $('#item_delete_btn').click( function (){
+//     let  postId = $('#IID').val(); // get value
+//     $.ajax({
+//        url: "http://localhost:8080/Pos_System/item/"+postId, // Include postId in the URL
+//         method: "DELETE",
+//         // contentType: "application/json",
+//              // dataType: "json", // Expect JSON response
+//         success: function (result) {
+//             console.log(result);
+//             alert("delete successful");
+//         },
+//         error: function (error) {
+//             console.log(error);
+//             alert("delete failed, please try again");
+//         }
+//     });
+// });
 // function clearField() {
 //     $("#IID").val('');
 // }
