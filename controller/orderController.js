@@ -82,7 +82,7 @@ $("#cusIdOption").on("change",function (){
 //===item ===========
 function o_findItem(id, callback){
     $.ajax({
-        url: "http://localhost:8080/Pos_System/item?function=getById&id="+id,
+        url: "http://localhost:8080/Pos_System/item?function=getById&code="+code,
         method: "get",
         dataType: "json",
         success: function (resp, textStatus, jqXHR){
