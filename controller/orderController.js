@@ -1,9 +1,9 @@
-import orderDetailsModel from "../model/orderDetailsModel.js";
+// import orderDetailsModel from "../model/orderDetailsModel.js";
 import {customer} from '/db/db.js';
 import {items} from '/db/db.js';
 import {order} from '/db/db.js';
 import {orderDetails} from '/db/db.js';
-import orderModel from "../model/orderModel.js";
+// import orderModel from "../model/orderModel.js";
 
 
 // let selectedCustomerId;

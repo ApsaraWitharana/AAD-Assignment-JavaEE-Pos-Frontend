@@ -3,21 +3,40 @@ import {items} from '/db/db.js';
 
 var recordIndex;
 
-function loadTable(){
-    $('#ItemsTable').empty();
+// function loadTable(){
+//     $('#ItemsTable').empty();
 
-    items.map((item, index) => {
-        let record = `
-            <tr>
-                <td class="item-id-value">${item.id}</td>
-                <td class="item-name-value">${item.name}</td> 
-                <td class="item-price-value">${item.price}</td>
-                <td class="item-qty-value">${item.qty}</td> 
-            </tr>`;
-        $("#ItemsTable").append(record);
-    });
+//     items.map((item, index) => {
+//         let record = `
+//             <tr>
+//                 <td class="item-id-value">${item.id}</td>
+//                 <td class="item-name-value">${item.name}</td> 
+//                 <td class="item-price-value">${item.price}</td>
+//                 <td class="item-qty-value">${item.qty}</td> 
+//             </tr>`;
+//         $("#ItemsTable").append(record);
+//     });
+// }
+//==============
+//=========set data to table================\
+function loadTable(itemObj) {
+  $("#item-section #ItemsTable").append(
+    "<tr> " +
+      "<td>" +
+      itemObj.code +
+      "</td>" +
+      "<td>" +
+      itemObj.name +
+      "</td>" +
+      "<td>" +
+      itemObj.price +
+      "</td>" +
+      "<td>" +
+      itemObj.qty +
+      "</td>" +
+      "</tr>"
+  );
 }
-
 //=====================save btn action==================
 
 $(".item_save_btn").click(function() {
@@ -42,7 +61,7 @@ $(".item_save_btn").click(function() {
         success: function (resp, textStatus, jqxhr) {
             if(jqxhr.status==201){
                 alert("item added successfully!!!");
-                getAllItems();
+                loadTable(itemObj);
                 clearField();
             }
         },

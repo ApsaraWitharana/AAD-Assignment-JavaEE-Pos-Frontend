@@ -1,8 +1,7 @@
 
 getAllCustomers();
-// import {} from '/model/customer.js';
+import {} from '/model/customer.js';
 import {customer} from '/db/db.js';
-
 
 // var recordIndex;
 // $(document).ready(function () {
@@ -59,7 +58,7 @@ $(".save_btn").click(function() {
         success: function (resp, textStatus, jqxhr) {
             if(jqxhr.status==201){
                 alert("Customer saved successfully!!!");
-                getAllCustomers();
+                loadTable(custObj);
                 clearField();
             }
         },
@@ -225,12 +224,32 @@ $("#searchb").click (function (){
         }
     });
 })
-
+//=========set data to table================\
+function loadTable(custObj) {
+  $("#customer-section #customerTable").append(
+    "<tr> " +
+      "<td>" +
+      custObj.id +
+      "</td>" +
+      "<td>" +
+      custObj.name +
+      "</td>" +
+      "<td>" +
+      custObj.address +
+      "</td>" +
+      "<td>" +
+      custObj.salary +
+      "</td>" +
+      "</tr>"
+  );
+}
 //-----------------------------------------------
 
 function findCustomer(id, callback) {
     $.ajax({
-        url: "http://localhost:8080/Pos_System/customer?function=getById&id="+id,
+         url: "http://localhost:8080/Pos_System/customer/getAll?id",
+            //  url = 'http://localhost:8080/Pos_System/customer?function=getById&id'=${customerId},
+        // url: "http://localhost:8080/Pos_System/customer?function=getById&id="+id,
         method: "get",
         dataType: "json",
         success: function (resp, textStatus, jqXHR){

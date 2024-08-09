@@ -122,6 +122,7 @@
     </section>
 
     <section class="container-fluid order-section " id="orderForm">
+        
         <div class="container-fluid " id="placeOrder">
             <section class="row m-2">
                 <div class="col bg-light m-1 card od col-md-6 col-lg-4 col-sm-12">
@@ -133,7 +134,7 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label fw-bold">Order Id :</label>
-                                    <input class="form-control" id="orderId" placeholder="ORD001" disabled>
+                                    <input class="form-control" id="orderId" disabled>
                                 </div>
 
                                 <div class="col-md-6 mb-3">
@@ -309,7 +310,7 @@
                                 <th>Total</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="table-secondary" id="od_tBody">
 
                         </tbody>
                     </table>
@@ -626,10 +627,11 @@
         crossorigin="anonymous"></script>
 
     <script src="/assest/js/script.js"></script>
-    <script type="module" src="controller/CustomerController.js"></script>
-    <script type="module" src="controller/itemController.js"></script>
-    <script type="module" src="controller/orderController.js"></script>
-    <script type="module" src="controller/barchat.js"></script>
+    <script type="module" src="/controller/CustomerController.js"></script>
+    <script type="module" src="/controller/itemController.js"></script>
+    <script type="module" src="/controller/orderController.js"></script>
+    <script type="module" src="/controller/orderDetails.js"></script>
+    <script type="module" src="/controller/barchat.js"></script>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
