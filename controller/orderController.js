@@ -59,6 +59,7 @@ function loadCustIds(){
         }
     });
 }
+
 //------------------set data customer form===============
 $("#cusIdOption").on("change",function (){
     let selectedOption = $(this).val();
@@ -289,7 +290,19 @@ $('#cash').on('keyup',function (){
 
     $('#balance').val((parseFloat(cash))-parseFloat(subT));
 })
-
+//========
+$("#orderForm #itemIdOption").change(function () {
+  let item = itemarray.find((i) => i.code === $(this).val());
+  code = item.code;
+  // alert(item.itemQty);
+  itemQty = item.itemQty;
+  $("#orderForm #btn_addItem").text("Add");
+  $("#orderForm #itemIdOption").val(item.code);
+  $("#orderForm #orderFormItemName").val(item.description);
+  $("#orderForm #orderFormQtyOnHand").val(item.quantity);
+  $("#orderForm #orderQty").val(item.price );
+});
+//===========
 function clearField(){
 
     // clear order details

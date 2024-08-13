@@ -59,6 +59,7 @@ $(".save_btn").click(function() {
             if(jqxhr.status==201){
                 alert("Customer saved successfully!!!");
                 loadTable(custObj);
+                // getAllCustomers();
                 clearField();
             }
         },
@@ -73,7 +74,31 @@ $(".save_btn").click(function() {
         
     });
 });
+//============
+// function getAllCustomers() {
+//     $("#customerTable").empty();
 
+//     $.ajax({
+//         url: "http://localhost:8080/Pos_System/customer?function=getAll",
+//         method: "GET",
+//         dataType: "json",
+//         success: function (res) {
+//             var rows = "";
+//             $.each(res.data, function (index, c) {
+//                 let cusId = c.id;
+//                 let cusName = c.name;
+//                 let cusAddress = c.address;
+//                 let cusSalary = c.salary;
+//                 let row = "<tr><td>" + cusId + "</td><td>" + cusName + "</td><td>" + cusAddress + "</td><td>" + cusSalary + "</td></tr>";
+//                 rows += row;
+//             });
+//             $("#customerTable").append(rows);
+//         },
+//         error: function (xhr, status, error) {
+//             console.error("AJAX request failed:", status, error);
+//         }
+//     });
+// }
 //---------------------------------------------------------
 
 // $("#customerTable").on('click', 'tr', function() {
@@ -114,10 +139,11 @@ $(".delete_btn").click(function () {
 function deleteCustomer(id) {
     let customer = findCustomer(id, function (customerId) {
         console.log(customerId);
-        if (customerId == undefined) {
-            // alert("Customer deleted successfully!!");
-            alert("No customer  id: " + id + " found");
-        } else {
+        // if (customerId == undefined) {
+        //     // alert("Customer deleted successfully!!");
+        //     alert("No customer  id: " + id + " found");
+        // } else {
+        {
              $.ajax({
                 url: "http://localhost:8080/Pos_System/customer?id="+id,
                 method: "delete",
